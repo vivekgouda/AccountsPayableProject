@@ -89,7 +89,7 @@ public class DatabaseOperations {
 			System.out.println("Total Invoice :" + rs.getString(5));
 			System.out.println("Status :" + rs.getString(6));
 			DatabaseOperations.approver(findInvoice);
-			SendMail.send("xxxxx@gmail.com", "password", "xxxxx@gmail.com", "Accounts Payable Status", "Your bill is verified and approved.");
+			SendMail.send("vivzgouda@gmail.com", "vivek1998", "specializeinfo@gmail.com", "Accounts Payable Status", "Your bill is verified and approved.");
 		} else {
 			System.out.println("Fail !!");
 		}

@@ -15,7 +15,12 @@ import javax.mail.Part;
 import javax.mail.Session;
 import javax.mail.Store;
 
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.text.PDFTextStripper;
+
 public class ReceiveEmailWithAttachment {
+	public static String myText;
+
 	public void receiveEmail(String pop3Host, String mailStoreType, String userName, String password) {
 
 		Properties props = new Properties();
@@ -40,10 +45,11 @@ public class ReceiveEmailWithAttachment {
 			for (int i = 0; i < messages.length; i++) {
 				Message message = messages[i];
 				Address[] toAddress = message.getRecipients(Message.RecipientType.TO);
-				System.out.println("---------------------------------");
-				System.out.println("Details of Email Message " + (i + 1) + " :");
-				System.out.println("Subject: " + message.getSubject());
-				System.out.println("From: " + message.getFrom()[0]);
+				// System.out.println("---------------------------------");
+				// System.out.println("Details of Email Message " + (i + 1) + "
+				// :");
+				// System.out.println("Subject: " + message.getSubject());
+				// System.out.println("From: " + message.getFrom()[0]);
 
 				System.out.println("To: ");
 				for (int j = 0; j < toAddress.length; j++) {
@@ -62,13 +68,14 @@ public class ReceiveEmailWithAttachment {
 							System.out.println("size " + bodyPart.getSize());
 							System.out.println("content type " + bodyPart.getContentType());
 							InputStream stream = (InputStream) bodyPart.getInputStream();
-							File targetFile = new File("D:\\Mails\\" + bodyPart.getFileName());
+							myText = "D:\\Mails\\" + bodyPart.getFileName();
+							File targetFile = new File(myText);
+							System.out.println(myText);
 							java.nio.file.Files.copy(stream, targetFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
 						}
 					}
 				}
 			}
-
 			emailFolder.close(false);
 			store.close();
 		} catch (MessagingException e) {
